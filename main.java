@@ -17,7 +17,7 @@ public class main {
         JPanel panel = new JPanel();
         JButton button = new JButton("start", null);
 
-        // button.setBounds(100, 100, 50, 50);
+        button.setBounds(100, 100, 50, 50);
         
 
         frame.add(panel);

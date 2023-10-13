@@ -35,25 +35,19 @@ public class Grid {
         }
     }
     public void fillFirst() {
-        int counter = 0;
-        for (int k = 0; k < 20; k++) {
-            if (grid[0][k]) {
-                counter += 1;
-            }
-        }
-        if (counter == 0) {
+        if (levelFree()) {
             block random = new block();
             boolean[][] anotherOne = random.selectRandom();
             currentBlock = anotherOne;
             for (int i = 0; i < 2; i++) {
                 for (int k = 0; k < 3; k++) {
                     grid[i][(WIDTH/2)-1+k] = anotherOne[i][k];
-
                 }
             }
         }
     }
-   boolean levelFree(){
+
+    boolean levelFree(){
         for(int i = 0; i < 3; i++){
             if(grid[g+1][(WIDTH / 2) - 1 + i]){
                 return false;
@@ -63,23 +57,27 @@ public class Grid {
     }
     public void fillLower() {
         
-        for(int i = 0; i < 2; i++){
-            for(int j = 0; j < 3; j++){
-                grid[g + i - 1][(WIDTH / 2) - 1 + j] = false;
+        if(levelFree()){
+            for(int i = 0; i < 2; i++){
+                for(int j = 0; j < 3; j++){
+                    grid[g + i - 1][(WIDTH / 2) - 1 + j] = false;
+                }
             }
-        }
 
-        for (int i = 0; i < 2; i++) {
-            for (int k = 0; k < 3; k++) {
-                grid[g + i][(WIDTH / 2)- 1 + k] = currentBlock[i][k];   
+            for (int i = 0; i < 2; i++) {
+                for (int k = 0; k < 3; k++) {
+                    grid[g + i][(WIDTH / 2)- 1 + k] = currentBlock[i][k];   
+                }
+                    
             }
-                
-        }
-        
-        g += 1;
-        if(g == 9 || !levelFree()){
-            g = 1;
-            fillFirst();
+            
+            g++;
+            if(g == 9 || !levelFree()){
+                g = 1;
+                fillFirst();
+            }
+        }else{
+            System.out.println("You lost");
         }
     }
 

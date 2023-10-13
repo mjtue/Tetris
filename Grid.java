@@ -53,6 +53,14 @@ public class Grid {
             }
         }
     }
+   boolean levelFree(){
+        for(int i = 0; i < 3; i++){
+            if(grid[g+1][(WIDTH / 2) - 1 + i]){
+                return false;
+            }
+        }
+        return true;
+    }
     public void fillLower() {
         
         for(int i = 0; i < 2; i++){
@@ -64,14 +72,15 @@ public class Grid {
         for (int i = 0; i < 2; i++) {
             for (int k = 0; k < 3; k++) {
                 grid[g + i][(WIDTH / 2)- 1 + k] = currentBlock[i][k];   
-            }        
+            }
+                
         }
         
         g += 1;
-        if (g == 9) {
+        if(g == 9 || !levelFree()){
             g = 1;
             fillFirst();
-        } 
+        }
     }
 
     public void fallingblocks() {

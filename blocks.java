@@ -4,7 +4,7 @@ public class block {
     Random rand = new Random();
 
     public boolean[][] selectRandom() {
-        int random = rand.nextInt(3);
+        int random = rand.nextInt(4);
         if (random == 0) {
             return KindsOfBlocks.block0();
         } else if (random == 1) {

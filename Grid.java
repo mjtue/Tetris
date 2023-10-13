@@ -4,7 +4,7 @@ import java.util.TimerTask;
 
 public class Grid {
     boolean[][] grid;
-    static final int WIDTH = 20;
+    static final int WIDTH = 20; 
     static final int HEIGHT = 10;
     boolean[][] currentBlock;
     public int g = 1;
@@ -54,18 +54,23 @@ public class Grid {
         }
     }
     public void fillLower() {
-        for (int i = 0; i < 2; i++) {
-            for (int k = 0; k < 3; k++) {
-                grid[g][(WIDTH/2)-1+k] = currentBlock[i][k];
-                grid[g-1][(WIDTH/2)-1+k] = false;
+        
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 3; j++){
+                grid[g + i - 1][(WIDTH / 2) - 1 + j] = false;
             }
         }
-        print();
-        System.out.println();
-        g += 1;
-        if (g == 10) {
-            g = 1;
+
+        for (int i = 0; i < 2; i++) {
+            for (int k = 0; k < 3; k++) {
+                grid[g + i][(WIDTH / 2)- 1 + k] = currentBlock[i][k];   
+            }        
         }
+        
+        g += 1;
+        if (g == 9) {
+            g = 1;
+        } 
     }
 
     public void fallingblocks() {

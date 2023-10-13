@@ -70,6 +70,7 @@ public class Grid {
         g += 1;
         if (g == 9) {
             g = 1;
+            fillFirst();
         } 
     }
 

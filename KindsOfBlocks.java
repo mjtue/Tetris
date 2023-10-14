@@ -29,4 +29,18 @@ public class KindsOfBlocks extends block{
             {true, true, true}, };
             return newBlock;
     }
+
+    public static boolean[][] block4() {
+        newBlock = new boolean [][]{ 
+            {true, true, false},
+            {true, true, true}, };
+            return newBlock;
+    }
+
+    public static boolean[][] block5() {
+        newBlock = new boolean [][]{ 
+            {true, true, false},
+            {true, true, true}, };
+            return newBlock;
+    }
 }

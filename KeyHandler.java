@@ -17,15 +17,12 @@ public class KeyHandler implements KeyListener {
 
         if (key == KeyEvent.VK_DOWN) {
             downMove = true;
-            System.out.println("down");
         }
         if (key == KeyEvent.VK_LEFT) {
             leftMove = true;
-            System.out.println("left");
         }
         if (key == KeyEvent.VK_RIGHT) {
             rightMove = true;
-            System.out.println("right");
         }
     }
 

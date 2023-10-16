@@ -1,4 +1,10 @@
+
+
+import java.awt.BorderLayout;
+
 import javax.swing.*;
+
+
 
 public class main {
 
@@ -15,9 +21,9 @@ public class main {
         frame.setLocationRelativeTo(null);
 
         Grid grid = new Grid();
-        grid.fillFirst();
-    
-        grid.fallingblocks();
+        GameManager manager = new GameManager();
+
+        manager.run(grid);
     }
 }
 

@@ -14,13 +14,17 @@ public class main {
 
     public main() {
         JFrame frame = new JFrame("CBL tetris game", null);
+
+        KeyHandler handler = new KeyHandler();
         
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        JLayeredPane layeredPane = frame.getLayeredPane();
+        
         
         frame.add(panel);
+        panel.addKeyListener(handler);
+        frame.addKeyListener(handler);
         frame.pack();
         frame.setLocationRelativeTo(null);
         JPanel settingsPanel = new JPanel();
@@ -57,12 +61,12 @@ public class main {
         exitButton.setBounds(0, 0, 100, 100);
         settingsPanel.setBackground(Color.blue);
         frame.add(settingsPanel);
-        
+
+        JLayeredPane layeredPane = frame.getLayeredPane();
         layeredPane.add(settingsPanel, Integer.valueOf(1));
         layeredPane.add(panel, 0);
         
-        panel.addKeyListener(panel);
-        frame.addKeyListener(panel);
+        start.setFocusable(false);
         URL sound = getClass().getResource("resources/Free Music - Tetris (Dark Version) (No Copyright Music).wav");
         turnMusic(sound);
     }

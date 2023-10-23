@@ -10,7 +10,8 @@ import javax.swing.*;
 public class main {
 
     MainPanel panel = new MainPanel();
-    SettingsFrame Music = new SettingsFrame();
+    SoundDesign Music = new SoundDesign();
+    URL sound = getClass().getResource("resources/Free Music - Tetris (Dark Version) (No Copyright Music).wav");
 
     public main() {
         JFrame frame = new JFrame("CBL tetris game", null);
@@ -27,16 +28,68 @@ public class main {
         frame.addKeyListener(handler);
         frame.pack();
         frame.setLocationRelativeTo(null);
+
         JPanel settingsPanel = new JPanel();
         JButton start = new JButton("Start");
         JButton settingsButton = new JButton("Settings");
         JButton exitButton = new JButton("Exit");
         JButton instructions = new JButton("Instructions");
 
+        JPanel volumePanel = new JPanel();
+        volumePanel.setBounds(62, 258, 300, 40);
+        volumePanel.setBackground(Color.blue);
+        JButton volumeUp = new JButton("+");
+        JButton volumeDown = new JButton("-");
+        JButton silence = new JButton("Mute the Music");
+        JButton back = new JButton("back");
+
+        volumePanel.add(volumeUp);
+        volumePanel.add(volumeDown);
+        volumePanel.add(silence);
+        volumePanel.add(back);
+        volumeUp.setVisible(false);
+        volumeDown.setVisible(false);
+        silence.setVisible(false);
+        back.setVisible(false);
+
+
+        frame.add(volumePanel);
+        
+
+        
+        start.setFocusable(false);
+        settingsButton.setFocusable(false);
+        instructions.setFocusable(false);
+
         settingsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                SettingsFrame settingsFrame = new SettingsFrame();
-                settingsFrame.setVisible(true);
+                volumeUp.setVisible(true);
+                volumeDown.setVisible(true);
+                silence.setVisible(true);
+                back.setVisible(true);
+            }
+        });
+        volumeUp.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Music.upVolume();
+            }
+        });
+        volumeDown.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Music.downVolume();
+            }
+        });
+        silence.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Music.SoundMute();
+            }
+        });
+        back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                volumeUp.setVisible(false);
+                volumeDown.setVisible(false);
+                silence.setVisible(false);
+                back.setVisible(false);
             }
         });
     
@@ -65,13 +118,12 @@ public class main {
         JLayeredPane layeredPane = frame.getLayeredPane();
         layeredPane.add(settingsPanel, Integer.valueOf(1));
         layeredPane.add(panel, 0);
+        layeredPane.add(volumePanel, Integer.valueOf(2));
         
-        start.setFocusable(false);
-        URL sound = getClass().getResource("resources/Free Music - Tetris (Dark Version) (No Copyright Music).wav");
+        
         turnMusic(sound);
     }
     public void turnMusic(URL url) {
-        Music.setFile(url);
         Music.play(url);
         Music.loop(url);
 

@@ -1,7 +1,9 @@
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,7 +13,7 @@ import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class MainPanel extends JPanel implements KeyListener {
+public class MainPanel extends JPanel {
     public static final int WIDTH = 20;
     public static final int HEIGHT = 20;
     public int position = 10;
@@ -57,30 +59,29 @@ public class MainPanel extends JPanel implements KeyListener {
 
             @Override
             public void run() {
-                System.out.println(leftMove);
                 positionY += 1;
                 fillLower();
                 
                 repaint();
                 
-                if (leftMove) {
+                if (KeyHandler.leftMove) {
                     
                     System.out.println("left");
                     if(position > 1){
                         position--;
                     }
-                    leftMove = false;
+                    KeyHandler.leftMove = false;
                 }
-                if (rightMove) {
+                if (KeyHandler.rightMove) {
                     System.out.println("right");
                     if(position < 18){
                         position++;
                     }
-                    rightMove = false;
+                    KeyHandler.rightMove = false;
                 }
             }
 
-        }, 0, 500);
+        }, 0, 200);
 
     }
 
@@ -211,32 +212,6 @@ public class MainPanel extends JPanel implements KeyListener {
         System.out.println("");
     }
 
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_LEFT) {
-            leftMove = true;
-        }
-        if (key == KeyEvent.VK_RIGHT) {
-            rightMove = true;
-        }
-    }
-    @Override
-    public void keyReleased(KeyEvent e) {
-        
-    }
-
-    
-
-
-
     @Override
     protected void paintComponent (Graphics e){
         super.paintComponent(e);
@@ -257,10 +232,25 @@ public class MainPanel extends JPanel implements KeyListener {
         for (int i = 0; i < 20; i++) {
             for (int k = 0; k < 20; k++) {
                 if (grid[i][k]) {
-                    e.fillRect(k * SIZE + 400, i * SIZE+40, SIZE, SIZE);
+                    e.fillRect(k * SIZE + 400, i * SIZE + 40, SIZE, SIZE);
                 } 
             }
-        } 
+        }
+        Graphics2D d = (Graphics2D) e;
+        d.setStroke(new BasicStroke(3));
+        d.setColor(Color.white);
+        for (int i = 0; i < 20; i++) {
+            for (int k = 0; k < 20; k++) {
+                if (grid[i][k]) {
+                    e.drawLine(k * SIZE + 400, i * SIZE + 40, k * SIZE + 400, i * SIZE + 70);
+                    e.drawLine(k * SIZE + 430, i * SIZE + 40, k * SIZE + 430, i * SIZE + 70);
+                    e.drawLine(k * SIZE + 400, i * SIZE + 40, k * SIZE + 430, i * SIZE + 40);
+                    e.drawLine(k * SIZE + 400, i * SIZE + 70, k * SIZE + 430, i * SIZE + 70);
+                    
+                } 
+            }
+        }
+
     }
 
 }

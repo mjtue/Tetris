@@ -26,6 +26,8 @@ public class MainPanel extends JPanel {
     public int counter = 0;
     public int positionX = 10;
     public int positionY = 0;
+    public boolean currentBlockKindR = false;
+    public boolean currentBlockKindL = false;
 
     public MainPanel() {
         
@@ -68,6 +70,10 @@ public class MainPanel extends JPanel {
                     
                     System.out.println("left");
                     if(position > 1){
+                        grid[g][position + 1] = false;
+                        if(currentBlockKindR && g > 0){
+                            grid[g - 1][position + 1] = false;
+                        }
                         position--;
                     }
                     KeyHandler.leftMove = false;
@@ -75,6 +81,10 @@ public class MainPanel extends JPanel {
                 if (KeyHandler.rightMove) {
                     System.out.println("right");
                     if(position < 18){
+                        grid[g][position - 1] = false;
+                        if(currentBlockKindL && g > 0){
+                            grid[g - 1][position - 1] = false;
+                        }
                         position++;
                     }
                     KeyHandler.rightMove = false;
@@ -149,6 +159,12 @@ public class MainPanel extends JPanel {
             block random = new block();
             boolean[][] anotherOne = random.selectRandom();
             this.currentBlock = anotherOne;
+            if(anotherOne[0][0]){
+                currentBlockKindL = true;
+            }
+            if(anotherOne[0][2]){
+                currentBlockKindR = true;
+            }
             for (int i = 0; i < 2; i++) {
                 for (int k = 0; k < 3; k++) {
                     grid[i][(position) - 1 + k] = anotherOne[i][k];

@@ -69,7 +69,7 @@ public class MainPanel extends JPanel {
                 if (KeyHandler.leftMove) {
                     
                     System.out.println("left");
-                    if(position > 1){
+                    if(leftFree()){
                         grid[g][position + 1] = false;
                         if(currentBlockKindR && g > 0){
                             grid[g - 1][position + 1] = false;
@@ -80,7 +80,7 @@ public class MainPanel extends JPanel {
                 }
                 if (KeyHandler.rightMove) {
                     System.out.println("right");
-                    if(position < 18){
+                    if(rightFree()){
                         grid[g][position - 1] = false;
                         if(currentBlockKindL && g > 0){
                             grid[g - 1][position - 1] = false;
@@ -95,6 +95,25 @@ public class MainPanel extends JPanel {
 
     }
 
+    public boolean leftFree(){
+        if(position <= 1 || g == 0){
+            return false;
+        } else if(grid[g][position - 2] || grid[g + 1][position - 2]){ 
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean rightFree(){
+        if(position >= 18 || g == 0){
+            return false;
+        } else if(grid[g][position + 2] || grid[g + 1][position + 2]){ 
+            return false;
+        } else {
+            return true;
+        }
+    }
     public void fullRow(){
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 20; j++) {

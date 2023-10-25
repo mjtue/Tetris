@@ -18,7 +18,7 @@ public class MainPanel extends JPanel {
     public static final int HEIGHT = 20;
     public int position = 10;
     public static final int SIZE = 30;
-    public static boolean downMove, leftMove, rightMove;
+    long highscore = 0;
     private Timer loop;
     public boolean[][] grid;
     public boolean[][] currentBlock;
@@ -175,7 +175,7 @@ public class MainPanel extends JPanel {
         if (levelFree()) {
             counter++;
             counter %= 5;
-            block random = new block();
+            Block random = new Block();
             boolean[][] anotherOne = random.selectRandom();
             this.currentBlock = anotherOne;
             if(anotherOne[0][0]){

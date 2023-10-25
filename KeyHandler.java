@@ -6,6 +6,7 @@ public class KeyHandler implements KeyListener {
 
     public static boolean leftMove;
     public static boolean rightMove;
+    public static boolean downMove;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -22,6 +23,11 @@ public class KeyHandler implements KeyListener {
         if (key == KeyEvent.VK_D) {
             rightMove = true;
         }
+        if (key == KeyEvent.VK_S) {
+            downMove = true;
+        }
+        
+
     }
 
     @Override

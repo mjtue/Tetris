@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -92,7 +94,18 @@ public class main {
                 back.setVisible(false);
             }
         });
-    
+
+        JPanel scorePanel = new JPanel();
+        scorePanel.setBackground(Color.blue);
+        frame.add(scorePanel);
+        scorePanel.setBounds(1090, 260, 200, 45);
+        scorePanel.setVisible(true);
+        JLabel score = new JLabel("Your Score: ");
+        score.setForeground(Color.white);
+        score.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
+        scorePanel.add(score);
+
+
         settingsPanel.setBounds(150, 300, 100, 200);
         settingsPanel.add(start);
         settingsPanel.add(settingsButton);
@@ -102,12 +115,21 @@ public class main {
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 panel.runGame();
+                start.setVisible(false);
             }
         });
 
         exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
+            }
+        });
+        instructions.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                InstructionsFrame instructionsFrame = new InstructionsFrame();
+                instructionsFrame.setVisible(true);
+                instructionsFrame.setLocationRelativeTo(null);
+                instructionsFrame.setPreferredSize(new Dimension(500, 500));
             }
         });
 
@@ -119,7 +141,7 @@ public class main {
         layeredPane.add(settingsPanel, Integer.valueOf(1));
         layeredPane.add(panel, 0);
         layeredPane.add(volumePanel, Integer.valueOf(2));
-        
+        layeredPane.add(scorePanel, Integer.valueOf(2));
         
         turnMusic(sound);
     }

@@ -14,8 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class MainPanel extends JPanel {
-    public static final int WIDTH = 20;
-    public static final int HEIGHT = 20;
     public int position = 10;
     public static final int SIZE = 30;
     long highscore = 0;
@@ -24,8 +22,6 @@ public class MainPanel extends JPanel {
     public boolean[][] currentBlock;
     public int g = 1;
     public int counter = 0;
-    public int positionX = 10;
-    public int positionY = 0;
     public boolean currentBlockKindR = false;
     public boolean currentBlockKindL = false;
     public long score = 0;
@@ -62,9 +58,7 @@ public class MainPanel extends JPanel {
 
             @Override
             public void run() {
-                positionY += 1;
                 fillLower();
-                
                 repaint();
                 
                 if (KeyHandler.leftMove) {
@@ -90,12 +84,56 @@ public class MainPanel extends JPanel {
                     }
                     KeyHandler.rightMove = false;
                 }
+                if (KeyHandler.downMove) {
+                    System.out.println("down");
+                    KeyHandler.downMove = false;
+                    if(g > 0){
+                        putDown();
+                        g = 1;
+                        fullRow();
+                        if(counter == 0){
+                            grid = turn();
+                            fullRow();
+                        }
+                        position = 10;
+                        fillFirst();
+                    }
+                }
             }
 
         }, 0, 200);
 
     }
 
+    public void putDown(){
+        boolean freeDown = true;
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 3; j++){
+                if(currentBlock[i][j]){
+                    grid[g + i - 1][position + j - 1] = false;
+                }
+            }
+        }
+        for(int i = g + 1; g < 20; g++){
+            for(int j = -1; j < 2; j++){
+                if(grid[g][position + j]){
+                    freeDown = false;
+                    break;
+                }
+            }
+            if( !freeDown ){
+                break;
+            }
+        }
+        g--;
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 3; j++){
+                if(currentBlock[i][j]){
+                    grid[g + i - 1][position + j - 1] = true;
+                }
+            }
+        }
+    }
     public boolean leftFree(){
         if(position <= 1 || g == 0){
             return false;
@@ -204,23 +242,22 @@ public class MainPanel extends JPanel {
         return true;
     }
     private void fillLower() {
-        
         if (levelFree()) {
-            for (int i = 0; i < 2; i++){
-                for (int j = 0; j < 3; j++){
-                    grid[g + i - 1][position - 1 + j] = false;
+            if(g < 19){
+                for (int i = 0; i < 2; i++){
+                    for (int j = 0; j < 3; j++){
+                        grid[g + i - 1][position - 1 + j] = false;
+                    }
                 }
+                for (int i = 0; i < 2; i++) {
+                    for (int k = 0; k < 3; k++) {
+                        grid[g + i][(position) - 1 + k] = currentBlock[i][k];   
+                    }
+                        
+                } 
             }
-
-            for (int i = 0; i < 2; i++) {
-                for (int k = 0; k < 3; k++) {
-                    grid[g + i][(position) - 1 + k] = currentBlock[i][k];   
-                }
-                    
-            } 
-            
             g++;
-            if (g == 19 || !levelFree()){
+            if (g >= 19 || !levelFree()){
                 g = 1;
                 fullRow();
                 if(counter == 0){
@@ -238,7 +275,7 @@ public class MainPanel extends JPanel {
             fillFirst();
         }
     }
-
+ 
     public void cleanGrid(){
         for(int i = 0;  i < 20; i++){
             for(int j = 0; j < 20; j++){

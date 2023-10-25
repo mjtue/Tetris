@@ -28,6 +28,7 @@ public class MainPanel extends JPanel {
     public int positionY = 0;
     public boolean currentBlockKindR = false;
     public boolean currentBlockKindL = false;
+    public long score = 0;
 
     public MainPanel() {
         
@@ -120,6 +121,7 @@ public class MainPanel extends JPanel {
                 if (!grid[i][j]) {
                     break;
                 } else if (j == 19) {
+                    score += 100;
                     reduce(i);
                 }
             }
@@ -175,7 +177,7 @@ public class MainPanel extends JPanel {
         if (levelFree()) {
             counter++;
             counter %= 5;
-            Block random = new Block();
+            block random = new block();
             boolean[][] anotherOne = random.selectRandom();
             this.currentBlock = anotherOne;
             if(anotherOne[0][0]){
@@ -229,7 +231,19 @@ public class MainPanel extends JPanel {
                 fillFirst();
             }
         } else {
+            score = 0;
+            counter = 0;
+            cleanGrid();
             System.out.println("You lost");
+            fillFirst();
+        }
+    }
+
+    public void cleanGrid(){
+        for(int i = 0;  i < 20; i++){
+            for(int j = 0; j < 20; j++){
+                grid[i][j] = false;
+            }
         }
     }
     public void print() {

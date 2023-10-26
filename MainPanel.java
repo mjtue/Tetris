@@ -24,14 +24,18 @@ public class MainPanel extends JPanel {
     public int g = 1;
     public int counter = 0;
     public int position = 10;
+    public int untilRotation = 5;
     public boolean currentBlockKindR = false;
     public boolean currentBlockKindL = false;
     public int score = 0;
     public boolean lost = false;
+    public boolean allowuntilrotation = false;
     private Timer restartLoop;
     private Timer loop;
     File scoreFile = new File("highscores.txt");
     JLabel scoreField = new JLabel("0", SwingConstants.CENTER);
+    JLabel rotation = new JLabel("5", SwingConstants.CENTER);
+    
 
     public MainPanel() {
         
@@ -43,9 +47,15 @@ public class MainPanel extends JPanel {
         this.addKeyListener(new KeyHandler());
         this.setFocusable(true);
         restartGame();
+        
         scoreField.setForeground(Color.white);
         add(scoreField, BorderLayout.EAST);
         scoreField.setFont(new Font("Serif", Font.PLAIN, 60));
+
+        rotation.setForeground(Color.white);
+        add(rotation, BorderLayout.PAGE_END);
+        rotation.setFont(new Font("Serif", Font.PLAIN, 60));
+
 
         this.grid = new boolean[20][20];
         for (int i = 0; i < 20; i++) {
@@ -64,7 +74,6 @@ public class MainPanel extends JPanel {
     }
 
     public void runGame() {
-        
         loop = new Timer();
         loop.schedule(new TimerTask() {
 
@@ -109,6 +118,8 @@ public class MainPanel extends JPanel {
                             fullRow();
                         }
                         position = 10;
+                        untilRotation -= 1;
+                        rotation.setText(String.valueOf(untilRotation));
                         fillFirst();
                     }
                 } else {
@@ -129,6 +140,8 @@ public class MainPanel extends JPanel {
                     KeyHandler.retryGame = false;
                     lost = false;
                     scoreField.setText("0");
+                    untilRotation = 5;
+                    rotation.setText("5");
                     runGame();
                     cleanGrid();
                     fillFirst();
@@ -233,10 +246,17 @@ public class MainPanel extends JPanel {
     public boolean[][] turn() {
         boolean[][] siteGrid = new boolean[20][20];
         for (int i = 0; i < 20; i++) {
-                for (int j = 0; j < 20; j++) {
-                    siteGrid[i][j] = grid[j][i];
-                }
-            }
+            for (int j = 0; j < 20; j++) {
+                siteGrid[i][j] = grid[j][i];
+           }
+        }
+        if (allowuntilrotation) {
+            untilRotation = 6;
+            rotation.setText(String.valueOf(untilRotation));
+        }
+        allowuntilrotation = true;
+        
+        
         return fall(siteGrid);
     }
 
@@ -260,7 +280,7 @@ public class MainPanel extends JPanel {
             }
             zeros = 0;
         }
-        
+
         return returnGrid;
     }
 
@@ -396,11 +416,18 @@ public class MainPanel extends JPanel {
             }
      
         }
-        e.drawLine(1100, 315, 1300, 315);
-        e.drawLine(1100, 315, 1100, 395);
-        e.drawLine(1100, 395, 1300, 395);
+        e.drawLine(1100, 285, 1300, 285);
+        e.drawLine(1100, 285, 1100, 365);
+        e.drawLine(1100, 365, 1300, 365);
         d.setColor(Color.black);
-        d.fillRect(1100, 315, 200, 80);
+        d.fillRect(1100, 285, 200, 80);
+
+        d.setColor(Color.black);
+        d.fillRect(590, 650, 95, 80);
+        e.setColor(Color.white);
+        e.drawLine(590, 650, 590, 730);
+        e.drawLine(590, 650, 685, 650);
+        e.drawLine(685, 650, 685, 730);
     }
 
 }

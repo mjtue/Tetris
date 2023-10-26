@@ -1,17 +1,10 @@
 import java.net.URL;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 public class SoundDesign {
     Clip clip;
@@ -49,7 +42,7 @@ public class SoundDesign {
     public void stop (URL url) {
         clip.stop();
     }
-    public void SoundMute() {
+    public void soundMute() {
         if (mute == false) {
             previous = current;
             current = -80.0f;

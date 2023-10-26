@@ -133,12 +133,21 @@ public class main {
         JPanel scorePanel = new JPanel();
         scorePanel.setBackground(Color.blue);
         frame.add(scorePanel);
-        scorePanel.setBounds(1090, 260, 200, 45);
+        scorePanel.setBounds(1090, 230, 200, 45);
         scorePanel.setVisible(true);
         JLabel score = new JLabel("Your Score: ");
         score.setForeground(Color.white);
         score.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
         scorePanel.add(score);
+
+        JPanel rotationPanel = new JPanel();
+        rotationPanel.setBackground(Color.blue);
+        frame.add(rotationPanel);
+        rotationPanel.setBounds(260, 660, 310, 40);
+        JLabel rotationNumber = new JLabel("Blocks until rotation:");
+        rotationPanel.add(rotationNumber);
+        rotationNumber.setForeground(Color.white);
+        rotationNumber.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 
 
         settingsPanel.setBounds(150, 300, 100, 200);
@@ -158,7 +167,7 @@ public class main {
         layeredPane.add(panel, 0);
         layeredPane.add(volumePanel, Integer.valueOf(2));
         layeredPane.add(scorePanel, Integer.valueOf(2));
-        
+        layeredPane.add(rotationPanel, Integer.valueOf(2));
         turnMusic(sound);
 
     }

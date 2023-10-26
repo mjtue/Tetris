@@ -7,6 +7,7 @@ public class KeyHandler implements KeyListener {
     public static boolean leftMove;
     public static boolean rightMove;
     public static boolean downMove;
+    public static boolean retryGame;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -25,6 +26,9 @@ public class KeyHandler implements KeyListener {
         }
         if (key == KeyEvent.VK_S) {
             downMove = true;
+        }
+        if (key == KeyEvent.VK_R) {
+            retryGame = true;
         }
         
 

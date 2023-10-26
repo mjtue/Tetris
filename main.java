@@ -12,8 +12,10 @@ import javax.swing.*;
 public class main {
 
     MainPanel panel = new MainPanel();
-    SoundDesign Music = new SoundDesign();
-    URL sound = getClass().getResource("resources/Free Music - Tetris (Dark Version) (No Copyright Music).wav");
+    SoundDesign music = new SoundDesign();
+    URL sound = getClass().getResource("resources/Free Music - "
+                                        +
+                                    "Tetris (Dark Version) (No Copyright Music).wav");
 
     public main() {
         JFrame frame = new JFrame("CBL tetris game", null);
@@ -33,9 +35,31 @@ public class main {
 
         JPanel settingsPanel = new JPanel();
         JButton start = new JButton("Start");
+        start.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                panel.runGame();
+                start.setVisible(false);
+            }
+        });
         JButton settingsButton = new JButton("Settings");
+
         JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
         JButton instructions = new JButton("Instructions");
+
+        instructions.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                InstructionsFrame instructionsFrame = new InstructionsFrame();
+                instructionsFrame.setVisible(true);
+                instructionsFrame.setLocationRelativeTo(null);
+                instructionsFrame.setPreferredSize(new Dimension(500, 500));
+            }
+        });
 
         JPanel volumePanel = new JPanel();
         volumePanel.setBounds(62, 258, 300, 40);
@@ -73,17 +97,17 @@ public class main {
         });
         volumeUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Music.upVolume();
+                music.upVolume();
             }
         });
         volumeDown.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Music.downVolume();
+                music.downVolume();
             }
         });
         silence.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Music.SoundMute();
+                music.soundMute();
             }
         });
         back.addActionListener(new ActionListener() {
@@ -95,6 +119,7 @@ public class main {
             }
         });
 
+        //Adding the the text above the score to display it 
         JPanel scorePanel = new JPanel();
         scorePanel.setBackground(Color.blue);
         frame.add(scorePanel);
@@ -111,27 +136,6 @@ public class main {
         settingsPanel.add(settingsButton);
         settingsPanel.add(instructions);
         settingsPanel.add(exitButton);
-        
-        start.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                panel.runGame();
-                start.setVisible(false);
-            }
-        });
-
-        exitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-        instructions.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                InstructionsFrame instructionsFrame = new InstructionsFrame();
-                instructionsFrame.setVisible(true);
-                instructionsFrame.setLocationRelativeTo(null);
-                instructionsFrame.setPreferredSize(new Dimension(500, 500));
-            }
-        });
 
         exitButton.setBounds(0, 0, 100, 100);
         settingsPanel.setBackground(Color.blue);
@@ -144,10 +148,11 @@ public class main {
         layeredPane.add(scorePanel, Integer.valueOf(2));
         
         turnMusic(sound);
+
     }
     public void turnMusic(URL url) {
-        Music.play(url);
-        Music.loop(url);
+        music.play(url);
+        music.loop(url);
 
     }
     
@@ -156,5 +161,3 @@ public class main {
        
     }
 }
-
-

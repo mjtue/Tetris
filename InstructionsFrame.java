@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ public class InstructionsFrame extends JFrame {
     public InstructionsFrame() {
         setBackground(Color.gray);
         setSize(600, 500);
+        setTitle("Instructions");
         instructionsPanel.setVisible(true);
         add(instructionsPanel);
         
@@ -23,17 +25,24 @@ public class InstructionsFrame extends JFrame {
         instructionsPanel.add(textLabel);
         textLabel.setText("<html>In order to start the game click the 'start' button.<html>"
                             +
-                           " in order to move the block use the 'a' key to move left and the"
+                           " To move the block use the 'a' key to move left and the"
                             +
-                           "'d' button to move right. You increase your score "
+                           " 'd' key to move right. Also by clicking 's' you can make a block"
+                           + 
+                           " immidietaly fall down the grid. You increase your score "
                            +
-                           "each time you fill a row with blocks. "
+                           "each time you fill a full row with blocks. "
                            +
                            "However each five blocks that fall the whole board rotates by "
                            +
-                           "90 degrees counterclockwise and the blocks fall "
+                           "90 degrees counterclockwise and the blocks that are rotated fall. "
                            +
-                           "Although it might be confusing at first its easy to get used to");
+                           "After losing, to try again click the 'r' button on your keyboard. "
+                           +
+                           "Additionally by clicking Scoreboard button you will see "
+                           +
+                           "five of your best scores.");
+        textLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
         
     }
 }

@@ -118,9 +118,9 @@ public class MainPanel extends JPanel {
                             fullRow();
                         }
                         position = 10;
+                        fillFirst();
                         untilRotation -= 1;
                         rotation.setText(String.valueOf(untilRotation));
-                        fillFirst();
                     }
                 } else {
                     KeyHandler.downMove = false;
@@ -142,6 +142,9 @@ public class MainPanel extends JPanel {
                     scoreField.setText("0");
                     untilRotation = 5;
                     rotation.setText("5");
+                    KeyHandler.downMove = false;
+                    KeyHandler.leftMove = false;
+                    KeyHandler.rightMove = false;
                     runGame();
                     cleanGrid();
                     fillFirst();
@@ -150,7 +153,7 @@ public class MainPanel extends JPanel {
                     KeyHandler.retryGame = false;
                 }
             }
-        }, 0 ,  1);
+        }, 0, 1);
     }
 
     public void addHighscore(long score) {
@@ -161,31 +164,11 @@ public class MainPanel extends JPanel {
             output.close();
 
         } catch (IOException ex1) {
-           System.out.printf("ERROR writing score to file: %s\n", ex1);
+            System.out.printf("ERROR writing score to file: %s\n", ex1);
         }
        
     }
-    public int checkHighscore (int score) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(scoreFile));
-            String line = reader.readLine();
-            while (line != null) {
-                try {
-                    int highscore = Integer.parseInt(line.trim());
-                    if (score < highscore) {
-                        score = highscore;
-                    }
-                } catch (NumberFormatException e1) {
-
-                }
-            }
-            reader.close();
-        } catch (IOException ex) {
-           System.err.println("ERROR reading scores from file");
-        }
-        return score;
-    }
-
+    
     public void fillFirst() {
         if (levelFree()) {
             counter++;
@@ -234,6 +217,8 @@ public class MainPanel extends JPanel {
                 }
                 position = 10;
                 fillFirst();
+                untilRotation -= 1;
+                rotation.setText(String.valueOf(untilRotation));
             }
         } else {
             addHighscore(score);

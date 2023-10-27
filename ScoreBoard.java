@@ -8,12 +8,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**Class responsible for displaying five best user's scores.
+ * 
+ */
 public class ScoreBoard extends JFrame {
     File file = new File("highscores.txt");
     ArrayList<Integer> scores = new ArrayList<>();
@@ -28,8 +29,8 @@ public class ScoreBoard extends JFrame {
             public void run() {
                 
                     add(new JPanel() {
-                    @Override
-                    public Dimension getPreferredSize() {
+                        @Override
+                        public Dimension getPreferredSize() {
                             return new Dimension(100, 50);
                         }
                     });
@@ -37,24 +38,24 @@ public class ScoreBoard extends JFrame {
             } 
         });
         panel.setLayout(new GridLayout(0, 1));
-        
 
-        
+        // reading through the file containing the scores and adding them to the ArrayList (scores)
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             reader.readLine();
             String line = reader.readLine();
-            
-            int counter = 0;
-            while (line!=null) {
+        
+            while (line != null) {
                 scores.add(Integer.parseInt(line.trim()));
                 line = reader.readLine();
-                counter += 1;
             }
+            reader.close();
         } catch (IOException ex) {
             System.out.println("ERROR while reading the files from the file");
         }
 
+        // using bubble sort algorithm in order to sort the scores of the arrayList
+        // to make them appear in decreasing order
         for (int i = 0; i < scores.size(); i++) {
             for (int current = 0; current < scores.size() - 1 - i; current++) {
                 if (scores.get(current) < scores.get(current + 1)) {
@@ -64,6 +65,9 @@ public class ScoreBoard extends JFrame {
                 }
             }
         }
+
+
+        // the conditional statements used to only display best 5 of player's scores
         if (scores.size() < 5) {
             for (int i  = 0; i < scores.size(); i++) {
                 String score = String.valueOf(scores.get(i));

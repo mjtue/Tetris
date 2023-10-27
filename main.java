@@ -15,7 +15,7 @@ public class main {
     SoundDesign music = new SoundDesign();
     URL sound = getClass().getResource("resources/Free Music - "
                                         +
-                                    "Tetris (Dark Version) (No Copyright Music).wav");
+                                        "Tetris (Dark Version) (No Copyright Music).wav");
 
     public main() {
         JFrame frame = new JFrame("CBL tetris game", null);
@@ -36,13 +36,14 @@ public class main {
         JPanel settingsPanel = new JPanel();
         JButton scoreboard = new JButton("Scoreboard");
         scoreboard.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 ScoreBoard scoreBoard = new ScoreBoard();
                 scoreBoard.setVisible(true);
                 scoreBoard.setLocationRelativeTo(null);
                 scoreBoard.setPreferredSize(new Dimension(600, 500));
             }
         });
+        
         JButton start = new JButton("Start");
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -50,7 +51,7 @@ public class main {
                 start.setVisible(false);
             }
         });
-        JButton settingsButton = new JButton("Settings");
+        
 
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(new ActionListener() {
@@ -91,12 +92,7 @@ public class main {
         frame.add(volumePanel);
         
 
-        
-        start.setFocusable(false);
-        settingsButton.setFocusable(false);
-        instructions.setFocusable(false);
-        scoreboard.setFocusable(false);
-
+        JButton settingsButton = new JButton("Settings");
         settingsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 volumeUp.setVisible(true);
@@ -105,6 +101,12 @@ public class main {
                 back.setVisible(true);
             }
         });
+        start.setFocusable(false);
+        settingsButton.setFocusable(false);
+        instructions.setFocusable(false);
+        scoreboard.setFocusable(false);
+
+
         volumeUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 music.upVolume();
@@ -171,6 +173,13 @@ public class main {
         turnMusic(sound);
 
     }
+
+    /**Method responsible for turning on the music when the applictation is launched.
+     * It also applies the method loop which loops the music
+     * 
+     * @param url this is the parameter that refers to the location of the audio file.
+     * 
+     */
     public void turnMusic(URL url) {
         music.play(url);
         music.loop(url);

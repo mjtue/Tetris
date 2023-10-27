@@ -5,10 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Timer;
@@ -73,6 +71,15 @@ public class MainPanel extends JPanel {
 
     }
 
+    /**Method responsible for running the game.
+     * 
+     * After calling this method the loop responsible for blocks falling is
+     * initiated. Each time the loop is passed the repaint() and fillLower() methods
+     * are called which result in checking which blocks in the grid are occupied (elements
+     * in the grid array which are true) and painting a rectangle in an appropriate space as 
+     * well as calling the methods responsible for moving the blocks left right and down.
+     * 
+     */
     public void runGame() {
         loop = new Timer();
         loop.schedule(new TimerTask() {
@@ -107,7 +114,7 @@ public class MainPanel extends JPanel {
                     KeyHandler.rightMove = false;
                 }
 
-                if (KeyHandler.downMove && !lost ) {
+                if (KeyHandler.downMove && !lost) {
                     KeyHandler.downMove = false;
                     if (g > 0) {
                         putDown();
@@ -131,6 +138,18 @@ public class MainPanel extends JPanel {
 
         }, 0, 200);
     }
+
+    /** After losing the game, when player click the 'r' key the game restarts.
+     * 
+     * There is another timer (restartLoop) created which has very low period.
+     * This method is called in the constructor as the loop never stops.
+     * The functionality of the method essentially lies in the fact that after losing the game
+     * the main loop (loop) responsible for the game running is canceled. Then when variable
+     * lost is true (meaning that the game was lost) the player is enabled to click the
+     * restart button which results in calling the runGame() method, setting score to 0,
+     * clearing the grid etc.
+     * 
+     */
     public void restartGame() {
         restartLoop = new Timer();
         restartLoop.schedule(new TimerTask() {
@@ -156,7 +175,15 @@ public class MainPanel extends JPanel {
         }, 0, 1);
     }
 
-    public void addHighscore(long score) {
+    /**Adding the highscore after losing a game to the highscores.txt file.
+     * 
+     * After losing the game this method is invoked and it is responsible for adding
+     * the parameter score to a new line in the highscores.txt file.
+     * 
+     * @param score  stores the value of the player's score after losing the game.
+     * 
+     */
+    public void addHighscore(int score) {
         try {
             BufferedWriter output = new BufferedWriter(new FileWriter(scoreFile, true));
             output.newLine();
@@ -334,6 +361,11 @@ public class MainPanel extends JPanel {
         return true;
     }
     
+    /**Checks whether the current falling block can be moved to the right.
+     * 
+     * @return true if a block can be moved right or false if it cannot.
+     * 
+     */
     public boolean leftFree() {
         if (position <= 1 || g == 0) {
             return false;
@@ -344,7 +376,11 @@ public class MainPanel extends JPanel {
         }
     }
 
-    public boolean rightFree(){
+    /**Checks whether the current falling block can be moved to the right.
+     * 
+     * @return returns true if a block can be moved right and false if it cannot.
+     */
+    public boolean rightFree() {
         if (position >= 18 || g == 0) {
             return false;
         } else if (grid[g][position + 2] || grid[g + 1][position + 2]) { 
@@ -354,7 +390,13 @@ public class MainPanel extends JPanel {
         }
     }
     
-    public void cleanGrid(){
+    /**Assigns all of the values of grid array to false.
+     * 
+     * Essentially it is responsible for clearing the grid of all the blocks
+     * which are being currently present inside the grid 
+     * 
+     */
+    public void cleanGrid() {
         for (int i = 0;  i < 20; i++) {
             for (int j = 0; j < 20; j++) {
                 grid[i][j] = false;

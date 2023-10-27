@@ -64,11 +64,20 @@ public class ScoreBoard extends JFrame {
                 }
             }
         }
-        for (int i  = 0; i < scores.size(); i++) {
-            String score = String.valueOf(scores.get(i));
-            JLabel label  = new JLabel((i + 1) + ". " + score);
-            label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-            panel.add(label);   
+        if (scores.size() < 5) {
+            for (int i  = 0; i < scores.size(); i++) {
+                String score = String.valueOf(scores.get(i));
+                JLabel label  = new JLabel((i + 1) + ". " + score);
+                label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
+                panel.add(label);   
+            }
+        } else {
+            for (int i  = 0; i < 5; i++) {
+                String score = String.valueOf(scores.get(i));
+                JLabel label  = new JLabel((i + 1) + ". " + score);
+                label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
+                panel.add(label);   
+            }
         }
     }
 

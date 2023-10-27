@@ -407,11 +407,12 @@ public class MainPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics e) {
         super.paintComponent(e);
+
+
+        // drawing the grid
         e.setColor(Color.black);
         e.fillRect(400, 40, 600, 600);
-
         e.setColor(Color.WHITE);
-
         for (int i = 0; i < 21; i++) {
             e.drawLine(400, SIZE * i + 40, 1000, SIZE * i + 40);
         }
@@ -419,8 +420,9 @@ public class MainPanel extends JPanel {
             e.drawLine(i * 30 + 10, 40, i * 30 + 10, 640);
         }
         
+        // draw the rectangle in the location inside the grid which is occupied
+        // (where the value of grid array is true)
         e.setColor(Color.GREEN);
-                
         for (int i = 0; i < 20; i++) {
             for (int k = 0; k < 20; k++) {
                 if (grid[i][k]) {
@@ -428,6 +430,8 @@ public class MainPanel extends JPanel {
                 } 
             }
         }
+
+        // Drawing the wider lines around the rectangles inside the grid
         Graphics2D d = (Graphics2D) e;
         d.setStroke(new BasicStroke(3));
         d.setColor(Color.white);
@@ -443,12 +447,16 @@ public class MainPanel extends JPanel {
             }
      
         }
+
+        //Draw the frame for the user's current score
         e.drawLine(1100, 285, 1300, 285);
         e.drawLine(1100, 285, 1100, 365);
         e.drawLine(1100, 365, 1300, 365);
         d.setColor(Color.black);
         d.fillRect(1100, 285, 200, 80);
 
+        // Draw the frame for the display of blocks that need to 
+        // fall before the rotation occurs
         d.setColor(Color.black);
         d.fillRect(590, 650, 95, 80);
         e.setColor(Color.white);

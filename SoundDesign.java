@@ -24,7 +24,8 @@ public class SoundDesign {
     /** Setting the music file.
      * 
      * Setting the audio file which then can be adjusted by the FloatControl to set a specific
-     * Volume of music
+     * Volume of music. if the method does not find the audio file an appropriate message is 
+     * displayed.
      * 
      * @param url the audio file with the music
      */

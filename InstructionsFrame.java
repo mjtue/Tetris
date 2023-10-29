@@ -5,12 +5,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/*
- * This class is responsible for showing rules of the game;
+/**Class responsible for displaying the instructions for the user on how to play the game.
+ * 
  */
 public class InstructionsFrame extends JFrame {
     JPanel instructionsPanel = new JPanel();
     
+    /**displaying the instructions for the user on how to play the game.
+     * 
+     * There is created a panel to which a label is added which contatins
+     * the necessary information needed to play the game effectively. 
+     * 
+     */
     public InstructionsFrame() {
         setBackground(Color.gray);
         setSize(600, 500);

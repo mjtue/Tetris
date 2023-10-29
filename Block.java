@@ -1,3 +1,6 @@
+/*
+ * In this class we return random kind of block
+ */
 import java.util.Random;
 
 public class Block {

@@ -1,13 +1,13 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/*
+ * This class is responsible for showing rules of the game;
+ */
 public class InstructionsFrame extends JFrame {
     JPanel instructionsPanel = new JPanel();
     

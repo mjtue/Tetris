@@ -1,4 +1,8 @@
-public class KindsOfBlocks extends block{
+/*
+ * In this class we create 6 diffrent kinds of blocks;
+ */
+
+public class KindsOfBlocks extends Block{
     
     public static boolean[][] newBlock = new boolean[2][3];
 

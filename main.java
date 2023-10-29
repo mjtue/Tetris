@@ -119,7 +119,7 @@ public class main {
         });
         silence.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                music.soundMute();
+                music.SoundMute();
             }
         });
         back.addActionListener(new ActionListener() {
@@ -191,5 +191,4 @@ public class main {
        
     }
 }
-
 

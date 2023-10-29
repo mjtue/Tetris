@@ -1,8 +1,9 @@
-import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-/*
- * In this class we are checking if any of keyboard button was pressed
+
+/** KeyHandler is a class responsible for handling the keys.
+ * 
  */
 public class KeyHandler implements KeyListener {
 
@@ -33,7 +34,6 @@ public class KeyHandler implements KeyListener {
             retryGame = true;
         }
         
-
     }
 
     @Override

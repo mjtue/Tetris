@@ -348,7 +348,7 @@ public class MainPanel extends JPanel {
                 }
             }
         }
-        for (int i = g + 1; g < 20; g++) {
+        for (g = g + 1; g < 20; g++) {
             for (int j = -1; j < 2; j++) {
                 if (grid[g][position + j]) {
                     freeDown = false;

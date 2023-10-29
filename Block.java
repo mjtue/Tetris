@@ -1,8 +1,8 @@
-/*
- * In this class we return random kind of block
- */
 import java.util.Random;
 
+/** In this class we return random kind of block.
+ * 
+ */
 public class Block {
     Random rand = new Random();
 

@@ -22,7 +22,7 @@ public class MainPanel extends JPanel {
     public int g = 1;
     public int counter = 0;
     public int position = 10;
-    public int untilRotation = 5;
+    public int untilRotation = 6;
     public boolean currentBlockKindR = false;
     public boolean currentBlockKindL = false;
     public int score = 0;
@@ -79,6 +79,10 @@ public class MainPanel extends JPanel {
      * in the grid array which are true) and painting a rectangle in an appropriate space as 
      * well as calling the methods responsible for moving the blocks left right and down.
      * 
+     * Then we check if any of keyboard's buttons was pressed;
+     * If 'S' was presses we are taking block to the bottom of the grid;
+     * if 'A' was pressed we are taking block one square left;
+     * if 'D' was pressed we are taking block one square right;
      */
     public void runGame() {
         loop = new Timer();
@@ -91,6 +95,25 @@ public class MainPanel extends JPanel {
                 if (lost) {
                     loop.cancel();
                 } 
+
+                if (KeyHandler.downMove && !lost) {
+                    KeyHandler.downMove = false;
+                    if (g > 0) {
+                        putDown();
+                        g = 1;
+                        fullRow();
+                        if (counter == 0) {
+                            grid = turn();
+                            fullRow();
+                        }
+                        position = 10;
+                        fillFirst();
+                        untilRotation -= 1;
+                        rotation.setText(String.valueOf(untilRotation));
+                    }
+                } else {
+                    KeyHandler.downMove = false;
+                }
 
                 if (KeyHandler.leftMove) {
                     if (leftFree()) {
@@ -112,25 +135,6 @@ public class MainPanel extends JPanel {
                         position++;
                     }
                     KeyHandler.rightMove = false;
-                }
-
-                if (KeyHandler.downMove && !lost) {
-                    KeyHandler.downMove = false;
-                    if (g > 0) {
-                        putDown();
-                        g = 1;
-                        fullRow();
-                        if (counter == 0) {
-                            grid = turn();
-                            fullRow();
-                        }
-                        position = 10;
-                        fillFirst();
-                        untilRotation -= 1;
-                        rotation.setText(String.valueOf(untilRotation));
-                    }
-                } else {
-                    KeyHandler.downMove = false;
                 }
 
                 
@@ -195,7 +199,16 @@ public class MainPanel extends JPanel {
         }
        
     }
-    
+
+    /* This method is resposible for uploading block to the grid;
+     * We are doing only when under our block we have empty space;
+     * We are checking this in method levelFree();
+     * We add one to counter, which is responsible for showing 
+     * how many blocks we are having to grid rotation;
+     * currentBlockL and currentBlockR are saying us 
+     * if we block is full in top left or top right corner;
+     * In last part of the method we are just uplaoding block to the grid;
+     */
     public void fillFirst() {
         if (levelFree()) {
             counter++;
@@ -219,6 +232,20 @@ public class MainPanel extends JPanel {
 
     }
 
+    /*
+     * This method is responsible for putting block one level lower;
+     * We are doing method only when there are no blocks under our block and we did not lose the game;
+     * We are checking condition in method levelFree() and in boolean lost;
+     * Next we are doing to loops but only when we are not in the lowest level;
+     * In these 2 loops we are puting block one level lower;
+     * Then we are checking if we are on the lowest level or under our block there is no free space;
+     * If conditions are true we put our level on top;
+     * We are checking if any row is full;
+     * If counter is equal zero we turn the grid;
+     * Then we put the next block in method fillFirst;
+     * 
+     * If the first condition is false it means that we lost;
+     */
     private void fillLower() {
         if (levelFree() && !lost) {
             if (g < 19) {
@@ -244,7 +271,7 @@ public class MainPanel extends JPanel {
                 }
                 position = 10;
                 fillFirst();
-                untilRotation -= 1;
+                untilRotation -=1;
                 rotation.setText(String.valueOf(untilRotation));
             }
         } else {
@@ -255,6 +282,11 @@ public class MainPanel extends JPanel {
         }
     }
     
+    /*
+     * This method is responsible for rotating the grid 90 degrees;
+     * Method swap square with coordinates (i, j) to square with coordinates (j, i);
+     * After doing this we put every block on the ground in method fall;
+     */
     public boolean[][] turn() {
         boolean[][] siteGrid = new boolean[20][20];
         for (int i = 0; i < 20; i++) {
@@ -272,6 +304,11 @@ public class MainPanel extends JPanel {
         return fall(siteGrid);
     }
 
+    /*
+     * In this method we put block down if under it is free space;
+     * Firstly we are counting how many free squares are in column j;
+     * Then we fulfill on the bottom 20 - zeros squares in column j;
+     */
     public boolean[][] fall(boolean[][] fallingGrid){
         int zeros = 0;
         boolean[][] returnGrid = new boolean[20][20];
@@ -296,6 +333,12 @@ public class MainPanel extends JPanel {
         return returnGrid;
     }
 
+    /*
+     * In this method we are puting the block directly on the bottom;
+     * In first loop we are canceling the block;
+     * Then we are checking every row if the 3 squares of block's coordinates are empty;
+     * If at least one square is full we put there the block;
+     */
     public void putDown(){
         boolean freeDown = true;
         for (int i = 0; i < 2; i++) {
@@ -326,6 +369,11 @@ public class MainPanel extends JPanel {
         }
     }
     
+    /*
+     * This method checks if any row is full;
+     * To do so method if there exist a row with 19 occupied squares;
+     * If the row is full we add 100 points to our score and we cancel the row in method reduce;
+     */
     public void fullRow(){
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 20; j++) {
@@ -341,6 +389,10 @@ public class MainPanel extends JPanel {
         }
     }
 
+    /*
+    * This method is resposible for canceling row r;
+    * Method cancel blocks from row r and puts there blocks from row r-1
+    */
     public void reduce(int r) {
         for (int i = r; i > 0; i--) {
             for (int j = 0; j < 20; j++) {
@@ -352,6 +404,10 @@ public class MainPanel extends JPanel {
         }
     }
     
+    /*
+     * This method checks if under current block is free space;
+     * To do so method is checking free squares under the current block;
+     */
     private boolean levelFree() {
         for (int i = 0; i < 3; i++) {
             if (grid[g + 1][(position) - 1 + i]) {

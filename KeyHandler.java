@@ -1,7 +1,9 @@
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
-
+/*
+ * In this class we are checking if any of keyboard button was pressed
+ */
 public class KeyHandler implements KeyListener {
 
     public static boolean leftMove;

@@ -4,10 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-
 import javax.swing.*;
-
-
 
 public class main {
 
@@ -19,21 +16,17 @@ public class main {
 
     public main() {
         JFrame frame = new JFrame("CBL tetris game", null);
-
-        KeyHandler handler = new KeyHandler();
-        
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        
-    
+        KeyHandler handler = new KeyHandler();
         frame.add(panel);
         panel.addKeyListener(handler);
-        frame.addKeyListener(handler);
         frame.pack();
         frame.setLocationRelativeTo(null);
 
-        JPanel settingsPanel = new JPanel();
+        // the buttons responsible for showing the score, starting the game,
+        // showing the settings, displaying instructions and exiting the game
+        // have their functionality adjusted
         JButton scoreboard = new JButton("Scoreboard");
         scoreboard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -43,7 +36,7 @@ public class main {
                 scoreBoard.setPreferredSize(new Dimension(600, 500));
             }
         });
-        
+
         JButton start = new JButton("Start");
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -71,6 +64,7 @@ public class main {
             }
         });
 
+        //new panel responsible for storing all of the buttons responsible for adjusting the music
         JPanel volumePanel = new JPanel();
         volumePanel.setBounds(62, 258, 300, 40);
         volumePanel.setBackground(Color.blue);
@@ -91,7 +85,6 @@ public class main {
 
         frame.add(volumePanel);
         
-
         JButton settingsButton = new JButton("Settings");
         settingsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -107,6 +100,8 @@ public class main {
         scoreboard.setFocusable(false);
 
 
+        // assigning the correct functionality of buttons responsible for
+        // adjusting the volume of music and turning off the settings
         volumeUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 music.upVolume();
@@ -119,7 +114,7 @@ public class main {
         });
         silence.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                music.SoundMute();
+                music.soundMute();
             }
         });
         back.addActionListener(new ActionListener() {
@@ -142,6 +137,8 @@ public class main {
         score.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
         scorePanel.add(score);
 
+        //Adding the panel which stores the variables that are responsible for displaying
+        //the gui components pointing on how many blocks need to fall before the rotation occurs
         JPanel rotationPanel = new JPanel();
         rotationPanel.setBackground(Color.blue);
         frame.add(rotationPanel);
@@ -151,7 +148,8 @@ public class main {
         rotationNumber.setForeground(Color.white);
         rotationNumber.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 
-
+        // Panel responsible for storing all of the buttons
+        JPanel settingsPanel = new JPanel();
         settingsPanel.setBounds(150, 300, 100, 200);
         settingsPanel.add(start);
         settingsPanel.add(settingsButton);
@@ -159,11 +157,10 @@ public class main {
         settingsPanel.add(scoreboard);
         settingsPanel.add(exitButton);
         
-
-        exitButton.setBounds(0, 0, 100, 100);
         settingsPanel.setBackground(Color.blue);
         frame.add(settingsPanel);
-
+        
+        // Setting the correct layout of layers while displaying the grid
         JLayeredPane layeredPane = frame.getLayeredPane();
         layeredPane.add(settingsPanel, Integer.valueOf(1));
         layeredPane.add(panel, 0);
@@ -191,4 +188,5 @@ public class main {
        
     }
 }
+
 

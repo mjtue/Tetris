@@ -1,8 +1,10 @@
-/*
- * In this class we create 6 diffrent kinds of blocks;
+/** In this class we create 6 diffrent kinds of blocks.
+ * 
+ * These kinds of blocks are later used in the MainPanel class
+ * and are randomly selected when filling the first row of the grid.
+ * 
  */
-
-public class KindsOfBlocks extends Block{
+public class KindsOfBlocks extends Block {
     
     public static boolean[][] newBlock = new boolean[2][3];
 
